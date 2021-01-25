@@ -1,0 +1,53 @@
+      {send && (
+        <StyledModalWrapper>
+          <div className='modal__card'>
+            <div className='modal__header'>Send money</div>
+
+            <div className='modal__body'>
+              <div>From: {wallet.id}</div>
+
+              <div>
+                To:
+                <select
+                  name='wallets'
+                  id='wallets'
+                  className='form-select'
+                  onChange={(e: any) => setSelectedWallet(e.target.value)}
+                >
+                  <option value=''>Select card...</option>
+
+                  {wallets
+                    .filter((f: any) => f.id !== wallet.id && f)
+                    .map((w: any) => (
+                      <option key={w.id} value={w.id}>
+                        {w.currency}: {w.id}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className='btn-group'>
+                <input
+                  type='number'
+                  name='amount'
+                  value={sendTo.amount}
+                  onChange={(e: any) =>
+                    setSendTo({ ...sendTo, amount: e.target.value })
+                  }
+                />
+                {wallets.map((w: any) => (
+                  <button key={w.id}
+                    className='btn btn-sm btn-outline-success'
+                    onClick={() => sendHandler(w.id, selectedWallet)}
+                  >
+                    send
+                  </button>
+                ))}
+                <button className='btn btn-sm btn-outline-danger'>
+                  cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </StyledModalWrapper>
+      )}
